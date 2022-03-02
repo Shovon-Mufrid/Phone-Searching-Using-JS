@@ -70,4 +70,50 @@ async function displayPhones(phoneName) {
         </div>
       </div>`;
   }
+  async function getData(arguments, allData) {
+    let phones = allData ? [] : {};
+    const apiLink = allData
+      ? `https://openapi.programming-hero.com/api/phones?search=${arguments}`
+      : `https://openapi.programming-hero.com/api/phone/${arguments}`;
   
+    try {
+      showanimation(true);
+      const res = await fetch(apiLink);
+      const { data } = await res.json();
+      phones = data;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      showanimation(false);
+      return phones;
+    }
+  }
+  
+  function displayFeatures(features, title) {
+    if (!features) return "";
+    let string = `<h3 class='fw-bold mt-5'>${title}:</h3>`;
+    for (let [key, value] of Object.entries(features)) {
+      if (key == "sensors") value = value.join(", ");
+      string += `
+      <h6 class="card-title">${key}: <span class="text-muted">${value}</span></h6>
+      <hr>
+      `;
+    }
+    return string;
+  }
+  
+  function renderShowMoreBtn() {
+    const allProducts = document.getElementById("all-products");
+    allProducts.insertAdjacentHTML(
+      "beforeend",
+      `
+      <div class="text-center my-3"> 
+        <button id="show-more" type="button" class="btn btn-warning">Show More</button>
+      </div>
+      `
+    );
+  
+    document
+      .getElementById("show-more")
+      .addEventListener("click", showMoreHandler);
+  }
