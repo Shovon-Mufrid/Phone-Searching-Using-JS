@@ -14,3 +14,16 @@ searchBtn.addEventListener("click", (e) => {
     console.log(error);
   }
 });
+
+//search 
+async function displayPhones(phoneName) {
+    clearDisplay();
+    clearShowMoreBtn();
+    allPhones = await getData(phoneName, true);
+  
+    if (allPhones.length <= 0) return nothingFound();
+  
+    renderCards(allPhones.slice(0, 20));
+  
+    if (allPhones.length > 20) renderShowMoreBtn();
+  }
