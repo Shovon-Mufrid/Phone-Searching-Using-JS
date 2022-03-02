@@ -117,3 +117,31 @@ async function displayPhones(phoneName) {
       .getElementById("show-more")
       .addEventListener("click", showMoreHandler);
   }
+  // function calling
+function showMoreHandler() {
+    renderCards(allPhones);
+    clearShowMoreBtn();
+  }
+  
+  function clearShowMoreBtn() {
+    const showMoreBtn = document.getElementById("show-more");
+    if (!showMoreBtn) return null;
+    showMoreBtn.parentNode.removeChild(showMoreBtn);
+  }
+  
+  function clearDisplay() {
+    productDetailsContainer.textContent = "";
+    productsDisplay.textContent = "";
+  }
+  
+  function nothingFound() {
+    productDetailsContainer.innerHTML = `<h2 class="text-danger text-center">No Products found</h2>`;
+  }
+  
+  function showanimation(value) {
+    animation.setAttribute("style", `display: ${value ? "block" : "none"}`);
+  }
+  
+  function clearSearchInput() {
+    searchInput.value = ''
+  }
